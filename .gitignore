@@ -1,0 +1,31 @@
+# ignore 3rd party lib
+node_modules
+
+# ignore test converage
+coverage
+
+# ignore built files
+build
+
+# ignore logs
+logs
+**/logs
+
+# ignore public
+public
+**/public
+
+# ignore key
+keys/*.pem
+!*.example.pem
+
+# ignore Environment varibles
+*.env
+*.env.test
+
+# ignore init-mongo.js 
+addons/init-mongo.js
+
+# others
+.DS_Store
+test.ts

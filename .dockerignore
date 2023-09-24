@@ -1,0 +1,29 @@
+# ignore vscode config
+.vscode/
+
+# ignore logs
+logs
+**/logs
+*.log
+
+# ignore public
+public
+**/public
+
+# ignore 3rd party lib
+node_modules
+npm-debug.log
+
+# ignore built files
+build/**/*
+
+# ignore test converage
+coverage
+
+# git
+.gitignore
+.git
+
+# others
+.DS_Store 
+test.ts
