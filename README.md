@@ -10,7 +10,6 @@
 - [Routes](#routes )
 - [Tests](#tests )
 - [Thank you](#thanks )
-- [Next plan](#plan )
   
 ##  Introduction <a name = "intro"></a>
   
@@ -18,11 +17,11 @@ I want to say thank you to Mr. janishar. It has been so kind of him to share his
 Specifically, his repository named [Node.js Backend Architecture Typescript Project](https://github.com/janishar/nodejs-backend-architecture-typescript ) - a popular public repository that offers a nice architecture for building independent, scalable and maintainable **RESTful API** with ExpressJs
 I have learn a lot from his project. It took me quite a long time to go from reading, try to understand, and finally to use his codebase as references to write my first professional looking API. 
 Although it has been overwhelming because i had lots of things to learn and get familar with. But generally, i am satisfied with my learning progress, considering this is my first time challenging myself with a real-life application and it will definitely help me a lot on my carrer path as an backend developer.
-I also made some **improvements** from his codebase hopefully. So i think people can learn something new from this repository as well 🤗!
+I also made some **improvements** from his codebase hopefully. So i think people can learn something new from this repository as well 🤗!!
   
 ##  About this project <a name = "about"></a>
   
-I tried to build some standard usecases of an backend application with nice buniness rules applied.
+I tried to build some standard use cases of an backend application with nice buniness rules applied.
   
 ##  What i have learned? <a name = "learn"></a>
   
@@ -106,8 +105,15 @@ These features are built using **Redis list** for private messages and **Redis s
 To test this application, I used [Jest](https://jestjs.io/ ) framework to write unit tests and integration tests for most outstanding features:
   
 ###  Validation 
+
+
+
   
-**POST /login - validation**\
+  
+###  Unit tests
+  
+  
+**login validation**\
     ✔️ When there is no email, it should error 'email is required' (69 ms)\
     ✔️ When there is no password, it should error 'password is required' (24 ms)\
     ✔️ When there is unneeded fields, it should error 'field is not allowed' (30 ms)\
@@ -117,7 +123,31 @@ To test this application, I used [Jest](https://jestjs.io/ ) framework to write 
     ✔️ When email has invalid form, it should error 'not a valid email' (19 ms)\
     ✔️ When email is valid and password contains special characters included in [\$#@&%], validation should be successful (20 ms)\
     ✔️ When email is valid and password contain alphanumeric characters, validation should be successfull (22 ms)\
-  /login - login unit test
+    
+**authentication validation**\
+    ✔️ When there is no authorization header, it should error 'authorization is required' (23 ms)\
+    ✔️ When authorization hearder does not start with 'Bearer ', it should error 'must be like Bearer <token>' (22 ms)\
+    ✔️ When the authorization header starts with 'Bearer ' but not have token string, it should error 'must be like Bearer <token>' (23ms)\
+    ✔️ When the authorization header is valid, validation should be successfull (20 ms)
+
+**Json Web Token**\
+    ✔️ When a token created by encoding an unexpired payload, then both decoding and validating that token will give the original payload (40 ms)\
+    ✔️ When a token created by encoding an expired payload, then decoding that token will give the original payload but validating should throw error (10 ms)\
+    ✔️ When a token created from a different private key, then both decoding and validing should throw errors (18 ms)
+  
+**authentication**\
+    ✔️ When the access token is invalid, it should error 'token is not valid' (56 ms)\
+    ✔️ When the access token is expired, it should error 'token is expired' (31 ms)\
+    ✔️ When the payload has any invalid field, it should error 'invalid access token' (19 ms)\
+    ✔️ When there is no key associated with sub field in keys collection, it should error 'key does not exist' (22 ms)\
+    ✔️ When the access key is valid, user should be authenticated successfully (24 ms)
+  
+**authorization**\
+    ✔️ When required roles are invalid, it should error 'internall error' (163 ms)\
+    ✔️ When user don't have any of required roles, it should error 'permission deny' (51 ms)\
+    ✔️ When user have any of required roles, user should be authorized successfully (25 ms)
+
+**POST /login**\
     ✔️ When there is no user exists, it should error 'does not exist' (22 ms)\
     ✔️ When there is one whose status is false, it should error 'currently invalid' (23 ms)\
     ✔️ When there is valid one and you login the first time with wrong password, it should error 'Invalid password - 2 times left to tr
@@ -127,45 +157,18 @@ y (112 ms)\
     ✔️ When you still login with wrong password, it should error 'maximum try time' (19 ms)\
     ✔️ When you enter the right password, you should receive your user info and tokens respectively (138 ms)
   
-**authentication - validation**\
-    ✔️ When there is no authorization header, it should error 'authorization is required' (23 ms)\
-    ✔️ When authorization hearder does not start with 'Bearer ', it should error 'must be like Bearer <token>' (22 ms)\
-    ✔️ When the authorization header starts with 'Bearer ' but not have token string, it should error 'must be like Bearer <token>' (23ms)\
-    ✔️ When the authorization header is valid, validation should be successfull (20 ms)
-  
-  
-###  Unit tests
-  
-  
-**Json Web Token - unit test**\
-    ✔️ When a token created by encoding an unexpired payload, then both decoding and validating that token will give the original payload (40 ms)\
-    ✔️ When a token created by encoding an expired payload, then decoding that token will give the original payload but validating should throw error (10 ms)\
-    ✔️ When a token created from a different private key, then both decoding and validing should throw errors (18 ms)
-  
-**authentication - unit test**\
-    ✔️ When the access token is invalid, it should error 'token is not valid' (56 ms)\
-    ✔️ When the access token is expired, it should error 'token is expired' (31 ms)\
-    ✔️ When the payload has any invalid field, it should error 'invalid access token' (19 ms)\
-    ✔️ When there is no key associated with sub field in keys collection, it should error 'key does not exist' (22 ms)\
-    ✔️ When the access key is valid, user should be authenticated successfully (24 ms)
-  
-**authorization - unit test**\
-    ✔️ When required roles are invalid, it should error 'internall error' (163 ms)\
-    ✔️ When user don't have any of required roles, it should error 'permission deny' (51 ms)\
-    ✔️ When user have any of required roles, user should be authorized successfully (25 ms)
-  
 ###  Integration tests
   
   
   ✔️ admin, user1 and user2 login with right passwords, it should be all successfull (9228 ms)
   
-**ALL /message - private message - integration test**\
+**GET/POST /message - private message**\
     ✔️ admin send a message to user1, it should be sucessfull (1134 ms)\
     ✔️ user2 send a message to user1, it should be sucessfull (1081 ms)\
     ✔️ When user1 try to get new messages, there should be two message from user2 and admin (1074 ms)\
     ✔️ When user1 check new messages again, it should be empty (1091 ms)
   
-**ALL /message/world - world message - integration test**\
+**GET/POST /message/world - world message**\
     ✔️ admin sends 2 messages to the world successfully (3238 ms)\
     ✔️ user1 sends 2 messages to the world successfully (3656 ms)\
     ✔️ user2 sends 2 messages to the world successfully (3913 ms)\
@@ -180,14 +183,14 @@ y (112 ms)\
     ✔️ When user tries to get messages after the time bf_6, he/she should receive msg#6 only (550 ms)\
     ✔️ When user tries to get messages after now, he/she should receive empty [] (526 ms)
   
-**PUT /profile/name - name update - integration test**\
+**PUT /profile/name - update name**\
     ✔️ When user changes name for the first time, user should be allowed to. When the new name is already existed, it should error 'already existed' (4697 ms)\
     ✔️ When the new name is the same as current name, it should error 'your current name' (844 ms)\
     ✔️ When the new name is not owned by anyone yet, it should be successful (1388 ms)\
     ✔️ When user name has been updated recently, it should error 'can only update name after' (824 ms)\
     ✔️ When the last time user changed name is a long time ago (over renew duration), user should be allowed to (1651 ms)
   
-**POST /login - integration test**\
+**POST /login**\
     ✔️ When there is no user exists, it should error 'user does not exist' (380 ms)\
     ✔️ When there is one whose status is false, it should error 'currently invalid user' (1171 ms)\
     ✔️ When there is valid one and you login the first time with wrong password, it should error 'Invalid password - 2 times left to try (1569 ms)\
@@ -197,13 +200,13 @@ y (112 ms)\
     ✔️ When it has been a long time since your last login attempt (over RENEW_DURATION), it should reset try times(1509 ms)\
     ✔️ When you enter the right password, you should receive your user info and tokens respectively (1989 ms)
   
-**POST /signup - integration test**\
+**POST /signup**\
     ✔️ When email is not registered and has not been verified yet, it should error 'verify email first' (626 ms)\
     ✔️ When email is not registered and has been verified for over VALID_IN so far, it should error 'verify email again'  (893 ms)\
     ✔️ When email is not registered and has been just verified recently, then registration should be successfull (2362 ms)\
     ✔️ When email has already registered, it should error 'user has already existed (317 ms)
   
-**PUT /email/refresh - integration test**\
+**PUT /email/refresh**\
     ✔️ When there is no record associated with the email in emailCodes collection, it should issue an email code (1120 ms)\
     ✔️ When there is one, but has already been verified recently (not over IN_VALID time), it should error 'verified recently' (890 ms)\
     ✔️ When there is one, but has been verified for a while (over IN_VALID time), it should issue a new email code and reset refresh time (849 ms)\
@@ -213,7 +216,7 @@ y (112 ms)\
     ✔️ When you still try to refresh other more times, it should error 'maximum refresh time' (339 ms)\
     ✔️ When there is an unverified one, but it has been over RENEW_DURATION time since the last try, then it should issue a new email code and reset refresh time (871 ms)
   
-**PUT /email/verify - integration test**\
+**PUT /email/verify**\
     ✔️ When there is no record associated with the email in emailCodes collection, it should error 'no code available' (585 ms)\
     ✔️ When there is one and you try to verify over ENTER_IN time, it should error 'code expired' (774 ms)\
     ✔️ When there is one, and you try to verify in ENTER_IN time with the right code, verification should be successfull' (848 ms)\
@@ -229,7 +232,3 @@ y (112 ms)\
   
 It might be considered **best strategy** to learn from a real-life application and it is so helpful to have runnable codebase as references, especially during our early time with new technologies. For example, you don't have to deal with all the database and cache connection setups that will cost you lots of time finding best practices.
 Finally, when you read this post, i am quite sure that you got stumbled many times over my writing skill 😅. To be honest, I am not really good at it but i hope you can understand what i meant. Thank you for your visit and have a good day!
-  
-##  Next plan <a name = "plan"></a>
-  
-My next plan is to build an API using NestJS + SocketIO, as well as practice OPP design patterns & apply SOLID principles too!
