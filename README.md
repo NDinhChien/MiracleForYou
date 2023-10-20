@@ -43,16 +43,15 @@ In my opinon, the following are best characteristics of this architecture
   
 ###  Technologies and tools
   
-1. **ExpressJs:** As backend framework
-2. **MongoDB:** Learn to design schemas and good practices of using MongoDB indexes and queries
-3. **Redis:** Use list and sorted set specifically
-4. **JsonWebToken:** For user authentication  
-5. **Jest:** For writing unit test and integration test
-6. **Joi:** For validating user requests
-7. **Multer:** For handling file upload to server 
-8. **Winston:** For logging
-9. **Prettier & Eslint:** Use both to format and style codebase
-10. **Docker:** For dockerizing our app (I haven't tried to create my app image and build container yet)
+1. **ExpressJs** as backend framework
+2. **MongoDB** as database
+3. **Redis** for caching (use list and sorted set specifically)
+4. **JWT** for authentication  
+5. **Jest** for unit and integration testing
+6. **Joi** for validation
+7. **Multer** for handling uploaded files 
+8. **Winston** for logging
+9. **Docker** for dockerizing our app (I haven't tried to create my app image and build container yet)
   
 ##  Routes <a name = "routes"></a>
   
